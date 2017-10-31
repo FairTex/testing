@@ -54,7 +54,9 @@ namespace HomeExercises
             // Assert.True(AreEqual(actualTsar, expectedTsar));
             // При добавлении новых полей, нужно постоянно поддерживать тест
 
-            actualTsar.ShouldBeEquivalentTo(expectedTsar, o => o.Excluding(p => p.SelectedMemberInfo.Name == "Id"));
+            actualTsar.ShouldBeEquivalentTo(expectedTsar, 
+                o => o.Excluding(p => p.SelectedMemberInfo.Name == "Id" 
+                    && p.SelectedMemberInfo.DeclaringType == typeof(Person)));
 		}
 
 		private bool AreEqual(Person actual, Person expected)
