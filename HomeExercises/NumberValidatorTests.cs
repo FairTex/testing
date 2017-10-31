@@ -8,30 +8,30 @@ namespace HomeExercises
 	public class NumberValidatorTests
 	{
 	    [Test]
-	    public void ThrowArgumentException_OnNegativePrecision()
+	    public void Constructor_ThrowArgumentException_OnNegativePrecision()
 	    {
 	        Action act = () => new NumberValidator(-1, 2, true);
 	        act.ShouldThrow<ArgumentException>();
 	    }
 
 	    [Test]
-	    public void ShouldNotThrow()
+	    public void Constructor_ShouldNotThrow()
 	    {
 	        Action act = () => new NumberValidator(1, 0, true);
 	        act.ShouldNotThrow();
         }
 
-	    [TestCase(10, -1)]
-        [TestCase(10, 15)]
-	    public void ThrowArgumentException_IfScaleMoreThanPrecision_OrLessThanZero(int precision, int scale)
+	    [TestCase(10, -1, TestName = "if scale < 0")]
+        [TestCase(10, 15, TestName = "if scale > precision")]
+	    public void Constructor_ThrowArgumentException(int precision, int scale)
 	    {
 	        Action act = () => new NumberValidator(precision, scale, true);
 	        act.ShouldThrow<ArgumentException>();
         }
 
-	    [TestCase(null)]
-	    [TestCase("")]
-        public void ShouldBeFalse_IfStringIsEmptyOrNull(string value)
+	    [TestCase(null, TestName = "if string is null")]
+	    [TestCase("", TestName = "if string is empty")]
+        public void IsValidNumber_ShouldBeFalse(string value)
 	    {
 	        var validator = new NumberValidator(17, 2, true);
 	        validator.IsValidNumber(value).Should().BeFalse();
@@ -40,7 +40,7 @@ namespace HomeExercises
 	    [TestCase(17, 2, "0.0")]
 	    [TestCase(17, 2, "0")]
 	    [TestCase(4, 2, "+1.23")]
-        public void ShouldBeTrue(int precision, int scale, string value)
+        public void IsValidNumber_ShouldBeTrue(int precision, int scale, string value)
 	    {
 	        new NumberValidator(precision, scale, true).IsValidNumber(value)
                 .Should().BeTrue();
@@ -53,7 +53,7 @@ namespace HomeExercises
 	    [TestCase(17, 2, "0.000")]
         [TestCase(3, 2, "-1.23")]
         [TestCase(3, 2, "a.sd")]
-	    public void ShouldBeFalse(int precision, int scale, string value)
+	    public void IsValidNumber_ShouldBeFalse(int precision, int scale, string value)
 	    {
 	        new NumberValidator(precision, scale, true).IsValidNumber(value)
 	            .Should().BeFalse();
