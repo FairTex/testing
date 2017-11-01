@@ -10,23 +10,23 @@ namespace HomeExercises
 	    [Test]
 	    public void Constructor_ThrowArgumentException_OnNegativePrecision()
 	    {
-	        Action act = () => new NumberValidator(-1, 2, true);
-	        act.ShouldThrow<ArgumentException>();
+	        Action action = () => new NumberValidator(-1, 2, true);
+	        action.ShouldThrow<ArgumentException>();
 	    }
 
 	    [Test]
 	    public void Constructor_ShouldNotThrow()
 	    {
-	        Action act = () => new NumberValidator(1, 0, true);
-	        act.ShouldNotThrow();
+	        Action action = () => new NumberValidator(1, 0, true);
+	        action.ShouldNotThrow();
         }
 
 	    [TestCase(10, -1, TestName = "if scale < 0")]
         [TestCase(10, 15, TestName = "if scale > precision")]
 	    public void Constructor_ThrowArgumentException(int precision, int scale)
 	    {
-	        Action act = () => new NumberValidator(precision, scale, true);
-	        act.ShouldThrow<ArgumentException>();
+	        Action action = () => new NumberValidator(precision, scale, true);
+	        action.ShouldThrow<ArgumentException>();
         }
 
 	    [TestCase(null, TestName = "if string is null")]
